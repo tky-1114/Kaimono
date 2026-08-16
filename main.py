@@ -14,6 +14,7 @@ class Item(BaseModel):
     name: str
     num: int
     details: str
+    deadline: str
 
 @app.get("/")
 def read_root(request: Request):

@@ -7,6 +7,7 @@
     
     <body>
         <p>grandma</p>
+        <p id="message"></p>
         <form id="item-form", method="post">
 
             <label>商品名</label>
@@ -17,6 +18,10 @@
 
             <label>詳細</label>
             <input type="text", id="details">
+
+            <label>いつまでに欲しいか</label>
+            <input type="date", id="deadline", required>
+
             <button type="submit", formaction="/item">送信</button>
         </form>
 
@@ -30,7 +35,8 @@
                 const item = {
                     name: document.getElementById("name").value,
                     num: document.getElementById("num").value,
-                    details: document.getElementById("details").value
+                    details: document.getElementById("details").value,
+                    deadline: document.getElementById("deadline").value
                 };
 
                 const response = await fetch("/item", {
@@ -43,11 +49,25 @@
                     body: JSON.stringify(item)
                 });
 
+                if (response.ok) {
+                    document.getElementById("message").textContent = "送信できました";
+                }
+
                 const result = await response.json();
 
                 consle.log(result);
+
+                
                 
             });
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, "0");
+            const day = String(today.getDate().padStart(2, "0"));
+
+            document.getElementById("deadline").value = 
+                `${year}-${month}-${day}`;
         </script>
     </body>
 </html>
