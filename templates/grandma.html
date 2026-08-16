@@ -7,5 +7,37 @@
     
     <body>
         <p>grandma</p>
+        <form id="item-form", method="post">
+            <input type="text", id="name", placeholder="name", required>
+            <button type="submit", formaction="/item">送信</button>
+        </form>
+
+        <script>
+            const form = document.getElementById("item-form");
+
+            form.addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const item = {
+                    name: document.getElementById("name").value,
+                };
+
+                const response = await fetch("/item", {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(item)
+                });
+
+                const result = await response.json();
+
+                consle.log(result);
+                
+            });
+        </script>
     </body>
 </html>
