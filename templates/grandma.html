@@ -8,7 +8,15 @@
     <body>
         <p>grandma</p>
         <form id="item-form", method="post">
-            <input type="text", id="name", placeholder="name", required>
+
+            <label>商品名</label>
+            <input type="text", id="name", required>
+
+            <label>数量</label>
+            <input type="number", id="num", value="1", required>
+
+            <label>詳細</label>
+            <input type="text", id="details">
             <button type="submit", formaction="/item">送信</button>
         </form>
 
@@ -21,6 +29,8 @@
 
                 const item = {
                     name: document.getElementById("name").value,
+                    num: document.getElementById("num").value,
+                    details: document.getElementById("details").value
                 };
 
                 const response = await fetch("/item", {

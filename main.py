@@ -12,6 +12,8 @@ templates = Jinja2Templates(directory="templates")
 
 class Item(BaseModel):
     name: str
+    num: int
+    details: str
 
 @app.get("/")
 def read_root(request: Request):
