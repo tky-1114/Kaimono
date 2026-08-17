@@ -3,6 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import asyncio
+from database import add_item
 
 app = FastAPI()
 
@@ -39,5 +40,6 @@ def daughter(request: Request):
 
 @app.post('/item')
 def item(item: Item):
+    add_item(item.name, item.num, item.details, item.deadline)
     print(item)
     return item
