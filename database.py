@@ -23,7 +23,22 @@ def add_item(name, num, details, deadline):
 
     conn.commit()
 
+    cursor.close()
+    conn.close()
+
     print("追加しました")
 
-if __name__ == "__main__":
-    pass
+def get_items():
+
+    conn = connect_mysql()
+    cursor = conn.cursor()
+
+    sql = "SELECT * FROM items;"
+    cursor.execute(sql)
+
+    items = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return items

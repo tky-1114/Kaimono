@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import asyncio
-from database import add_item
+from database import add_item, get_items
 
 app = FastAPI()
 
@@ -33,9 +33,13 @@ def grandma(request: Request):
 
 @app.get("/daughter")
 def daughter(request: Request):
+
+    items = get_items()
+
     return templates.TemplateResponse(
         request=request,
-        name = "daughter.html"
+        name = "daughter.html",
+        context={"items": items}
     )
 
 @app.post('/item')
