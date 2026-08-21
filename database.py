@@ -42,12 +42,31 @@ def get_items():
     conn.close()
 
     return items
-'''
+
 def delete_items(id):
 
     conn = connect_mysql()
     cursor = conn.cursor()
 
-    sql = "SELECT * FROM items"
-    cursor.execute(sql)
-'''
+    sql = "DELETE FROM items WHERE id = %s;"
+    cursor.execute(sql, (id, ))
+
+    conn.commit()
+    conn.close()
+    cursor.close()
+
+def update_status(item_id, status):
+    conn = connect_mysql()
+    cursor = conn.cursor()
+
+    sql = """
+        UPDATE items
+        SET status = %s
+        WHERE id = %s
+    """
+
+    cursor.execute(sql, (status, item_id))
+
+    conn.commit()
+    conn.close()
+    cursor.close()

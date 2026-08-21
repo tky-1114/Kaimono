@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import asyncio
-from database import add_item, get_items
+from database import add_item, get_items, delete_items, update_status
 
 app = FastAPI()
 
@@ -17,6 +17,9 @@ class Item(BaseModel):
     num: int
     details: str
     deadline: str
+
+class StatusUpdate(BaseModel):
+    status: int
 
 @app.get("/")
 def read_root(request: Request):
@@ -55,3 +58,13 @@ def item(item: Item):
         url="/grandma",
         status_code=303
     )
+
+@app.delete("/item/{item_id}")
+def remove_item(item_id: int):
+    delete_items(item_id)
+    return 0
+
+@app.put('/item/{item_id}/status')
+def change_status(item_id: int, data: StatusUpdate):
+    update_status(item_id, data.status)
+    return 0

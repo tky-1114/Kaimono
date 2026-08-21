@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>買い物</title>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     
     <body>
@@ -22,7 +23,7 @@
                 <td>{{ item[3] }}</td>
                 <td>{{ item[4] }}</td>
                 <td>
-                    <select name="status">
+                    <select onchange="updateStatus({{ item[0] }}, this.value)">
                         <option value="0" {% if item[5] == 0 %}selected{% endif %}>未対応</option>
                         <option value="1" {% if item[5] == 1 %}selected{% endif %}>A</option>
                         <option value="2" {% if item[5] == 2 %}selected{% endif %}>B</option>
@@ -35,5 +36,25 @@
         </table>
 
         <a href="/">戻る</a>
+
+        <script>
+            async function updateStatus(id, status) {
+                const response = await fetch(`/item/${id}/status`, {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        status: Number(status)
+                    })
+                });
+
+                if(response.ok) {
+                    console.log("更新成功");
+                }
+            }
+        </script>
     </body>
 </html>

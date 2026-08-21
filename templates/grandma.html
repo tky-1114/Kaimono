@@ -2,7 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>買い物</title>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     
     <body>
@@ -11,16 +11,16 @@
         <form id="item-form", method="post">
 
             <label>商品名</label>
-            <input type="text", id="name", required>
+            <input type="text", id="name", name="name", required>
 
             <label>数量</label>
-            <input type="number", id="num", value="1", required>
+            <input type="number", id="num", value="1", name="num" required>
 
             <label>詳細</label>
-            <input type="text", id="details">
+            <input type="text", id="details", name="details">
 
             <label>いつまでに欲しいか</label>
-            <input type="date", id="deadline", required>
+            <input type="date", id="deadline", name="deadline" required>
 
             <button type="submit", formaction="/item">送信</button>
         </form>
@@ -40,7 +40,25 @@
                 <td>{{ item[2] }}</td>
                 <td>{{ item[3] }}</td>
                 <td>{{ item[4] }}</td>
-                <td>{{ item[5] }}</td>
+                <td>
+                    {% if item[5] == 0 %}
+                        未対応
+                    {% elif item[5] == 1 %}
+                        A
+                    {% elif item[5] == 2 %}
+                        B
+                    {% elif item[5] == 3 %}
+                        C
+                    {% elif item[5] == 4 %}
+                        D
+                    {% endif %}
+                </td>
+
+                <td>
+                    <button type="button" onclick="deleteItem({{ item[0] }})">
+                        削除
+                    </button>
+                </td>
             </tr>
             {% endfor %}
         </table>
@@ -71,12 +89,12 @@
                 });
 
                 if (response.ok) {
-                    document.getElementById("message").textContent = "送信できました";
+                    window.location.reload();
                 }
 
                 const result = await response.json();
 
-                consle.log(result);
+                console.log(result);
 
                 
                 
@@ -85,10 +103,34 @@
             const today = new Date();
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, "0");
-            const day = String(today.getDate().padStart(2, "0"));
+            const day = String(today.getDate()).padStart(2, "0");
 
             document.getElementById("deadline").value = 
                 `${year}-${month}-${day}`;
+
+            async function deleteItem(id) {
+                console.log("削除するID： ", id);
+
+                if(!confirm("この商品を削除しますか？")) {
+                    return;
+                }
+
+                const response = await fetch(`/item/${id}`, {
+                    method: "DELETE"
+                });
+
+                console.log("レスポンス: ", response.status);
+
+                if(response.ok){
+                    window.location.reload();
+                }
+            }
+
+            form.addEventListener("keydown", function(event) {
+                if(event.key == "Enter") {
+                    event.preventDefault();
+                }
+            });
         </script>
     </body>
 </html>

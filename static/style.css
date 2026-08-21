@@ -1,3 +1,229 @@
-.APIOK {
-    font-size: 100pt;
+/* 買い物リスト共通CSS
+   HTML側を変更せず、grandma.html / daughter.html の両方に合わせたデザインです。
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px 24px 64px;
+    background: #f5f7f9;
+    color: #222;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ページ名 */
+body > p:first-child {
+    width: min(1100px, 100%);
+    margin: 0 auto 24px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* 送信メッセージ */
+#message {
+    width: min(1100px, 100%);
+    min-height: 1.6em;
+    margin: -14px auto 14px;
+    font-weight: 600;
+}
+
+/* grandma側の商品入力欄 */
+#item-form {
+    width: min(1100px, 100%);
+    margin: 0 auto 36px;
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 18px 20px;
+    align-items: center;
+}
+
+#item-form label {
+    font-weight: 700;
+    color: #374151;
+}
+
+#item-form input {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 13px;
+    border: 1px solid #b9c1ca;
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+    font: inherit;
+}
+
+#item-form input:focus,
+select:focus {
+    outline: 3px solid rgba(37, 99, 235, 0.18);
+    border-color: #2563eb;
+}
+
+#item-form button[type="submit"] {
+    grid-column: 2;
+    justify-self: start;
+}
+
+/* ボタン共通 */
+button {
+    min-height: 44px;
+    padding: 9px 20px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(0.94);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* grandma側の削除ボタン */
+table button[type="button"] {
+    background: #b42318;
+    white-space: nowrap;
+}
+
+/* 一覧表 */
+table {
+    width: min(1100px, 100%);
+    margin: 0 auto 28px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #d9dee5;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.05);
+}
+
+th,
+td {
+    padding: 15px 16px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #e9eef5;
+    color: #1f2937;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+tbody tr:hover,
+table tr:not(:first-child):hover {
+    background: #f8fafc;
+}
+
+/* 個数は見つけやすいよう中央寄せ */
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: center;
+    width: 90px;
+}
+
+/* 期限は折り返さない */
+th:nth-child(4),
+td:nth-child(4) {
+    white-space: nowrap;
+}
+
+/* daughter側の状況選択 */
+select {
+    min-width: 130px;
+    min-height: 44px;
+    padding: 8px 34px 8px 11px;
+    border: 1px solid #aeb7c2;
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+    font: inherit;
+    cursor: pointer;
+}
+
+/* 戻るリンク */
+body > a {
+    display: block;
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    color: #1d4ed8;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+body > a:hover {
+    text-decoration: underline;
+}
+
+/* スマホ・狭い画面 */
+@media (max-width: 700px) {
+    body {
+        padding: 24px 12px 48px;
+        font-size: 16px;
+    }
+
+    body > p:first-child {
+        font-size: 26px;
+    }
+
+    #item-form {
+        padding: 20px;
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    #item-form label:not(:first-child) {
+        margin-top: 8px;
+    }
+
+    #item-form button[type="submit"] {
+        grid-column: 1;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+    }
+
+    th,
+    td {
+        padding: 12px;
+    }
+
+    button,
+    select {
+        min-height: 46px;
+    }
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
 }
