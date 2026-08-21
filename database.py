@@ -42,3 +42,12 @@ def get_items():
     conn.close()
 
     return items
+'''
+def delete_items(id):
+
+    conn = connect_mysql()
+    cursor = conn.cursor()
+
+    sql = "SELECT * FROM items"
+    cursor.execute(sql)
+'''

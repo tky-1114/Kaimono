@@ -25,6 +25,26 @@
             <button type="submit", formaction="/item">送信</button>
         </form>
 
+        <table>
+            <tr>
+                <th>商品名</th>
+                <th>個数</th>
+                <th>詳細</th>
+                <th>期限</th>
+                <th>状況</th>
+            </tr>
+
+            {% for item in items %}
+            <tr>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}</td>
+                <td>{{ item[4] }}</td>
+                <td>{{ item[5] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
         <a href="/">戻る</a>
         <script>
             const form = document.getElementById("item-form");

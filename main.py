@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query, Request, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import asyncio
 from database import add_item, get_items
@@ -26,9 +27,13 @@ def read_root(request: Request):
 
 @app.get("/grandma")
 def grandma(request: Request):
+
+    items = get_items()
+
     return templates.TemplateResponse(
         request=request,
-        name = "grandma.html"
+        name = "grandma.html",
+        context={"items": items}
     )
 
 @app.get("/daughter")
@@ -45,5 +50,8 @@ def daughter(request: Request):
 @app.post('/item')
 def item(item: Item):
     add_item(item.name, item.num, item.details, item.deadline)
-    print(item)
-    return item
+    
+    return RedirectResponse(
+        url="/grandma",
+        status_code=303
+    )
