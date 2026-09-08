@@ -6,6 +6,8 @@ from pydantic import BaseModel
 import asyncio
 from database import add_item, get_items, delete_items, update_status
 
+#uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
 app = FastAPI()
 
 app.mount('/static', StaticFiles(directory='static'), name='static')
