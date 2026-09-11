@@ -13,7 +13,7 @@ def connect_mysql():
         host = os.getenv("MYSQLHOST"),
         user = os.getenv("MYSQLUSER"),
         password = os.getenv("MYSQLPASSWORD"),
-        database = os.getenv("MYSQLNAME")
+        database = os.getenv("MYSQLDATABASE")
     )
     return conn
 
