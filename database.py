@@ -5,16 +5,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def connect_mysql():
+    print("MYSQLHOST:", os.getenv("MYSQLHOST"))
+    print("MYSQLPORT:", os.getenv("MYSQLPORT"))
+    print("MYSQLUSER:", os.getenv("MYSQLUSER"))
+    print("MYSQLDATABASE:", os.getenv("MYSQLDATABASE"))
     conn = mysql.connector.connect(
         host = os.getenv("MYSQLHOST"),
         user = os.getenv("MYSQLUSER"),
         password = os.getenv("MYSQLPASSWORD"),
         database = os.getenv("MYSQLNAME")
     )
-    print("MYSQLHOST:", os.getenv("MYSQLHOST"))
-    print("MYSQLPORT:", os.getenv("MYSQLPORT"))
-    print("MYSQLUSER:", os.getenv("MYSQLUSER"))
-    print("MYSQLDATABASE:", os.getenv("MYSQLDATABASE"))
     return conn
 
 def add_item(name, num, details, deadline):
