@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ログイン</title>
+
+    <link rel="stylesheet" href="/static/login.css">
+</head>
+
+<body>
+
+    <main class="login-container">
+        <div class="login-card">
+
+            <h1>買い物リスト</h1>
+            <p class="description">パスワードを入力してください</p>
+
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <form action="/login" method="post">
+
+                <div class="input-group">
+                    <label for="password">パスワード</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">ログイン</button>
+
+            </form>
+
+        </div>
+    </main>
+
+</body>
+</html>

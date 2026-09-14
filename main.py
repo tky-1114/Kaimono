@@ -5,6 +5,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 import asyncio
 from database import add_item, get_items, delete_items, update_status
+from hash import hash_password
 
 #uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
@@ -27,7 +28,7 @@ class StatusUpdate(BaseModel):
 def read_root(request: Request):
     return templates.TemplateResponse(
         request = request, 
-        name = "index.html"
+        name = "login.html"
     )
 
 @app.get("/grandma")
@@ -70,3 +71,14 @@ def remove_item(item_id: int):
 def change_status(item_id: int, data: StatusUpdate):
     update_status(item_id, data.status)
     return 0
+
+@app.get("/login")
+async def login_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html"
+    )
+
+@app.post('/login')
+async def login(request: Request):
+    password = await request.form()
